@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  tida-framework:
+    build: .
+    environment:
+      - PROJECT_NAME
+      - NODE_ENV
+      - PORT_DEBUG
+      - SERVER_HTTP_PORT
+    volumes:
+      - ./src:/app/src
+      - ./.env:/app/.env
+      - ./package.json:/app/package.json
+    ports:
+      - "${SERVER_HTTP_PORT}:${SERVER_HTTP_PORT}"
+      - "${PORT_DEBUG}:${PORT_DEBUG}"
+    command: npm run dev
+    networks:
+      - tida-ecosystem-network
+
+networks:
+  tida-ecosystem-network:
+    external: true
+    name: tida-ecosystem-network
