@@ -21,6 +21,8 @@ export class HealthCkeckController extends BaseHttpController {
 
     @httpGet('/status/complete')
     getStatusComplete(req: Request, res: Response) {
-
+        res.json({
+            status: "ok"
+        })
     }
 }

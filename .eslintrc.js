@@ -1,18 +1,18 @@
 module.exports = {
     root: true,
-  
+
     env: {
       es2020: true,
       node: true,
     },
-  
+
     extends: [
       'eslint:recommended',
       'plugin:@typescript-eslint/recommended',
     ],
-  
+
     parser: '@typescript-eslint/parser',
-  
+
     plugins: ['@typescript-eslint'],
 
     rules: {
@@ -22,5 +22,6 @@ module.exports = {
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/interface-name-prefix': 'off',
-    },  
+      '@typescript-eslint/no-empty-interface': 'off'
+    },
   };

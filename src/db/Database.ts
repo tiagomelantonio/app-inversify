@@ -3,7 +3,7 @@ import { createConnection } from 'typeorm';
 export class Database {
 
     async start() {
-        const connection = await createConnection();
+        await createConnection();
         console.log('Database is connected');
     }
 }

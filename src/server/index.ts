@@ -12,13 +12,13 @@ export class HttpServer {
     }
 
     async start() {
-        let server = new InversifyExpressServer(this.container);
+        const server = new InversifyExpressServer(this.container);
         server.setConfig((app) => {
             app.use(bodyParser.urlencoded({ extended: true }));
             app.use(bodyParser.json());
         });
 
-        let app = server.build();
+        const app = server.build();
         app.listen(3000, function() {
             console.log('Http server is running on port 3000');
         });

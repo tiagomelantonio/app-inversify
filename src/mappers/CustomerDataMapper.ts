@@ -13,6 +13,6 @@ export class CustomerDataMapper implements EntityDataMapper<Customer, CustomerEn
     }
 
     toDalEntity(domain: Customer): CustomerEntity {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented." + domain);
     }
 }

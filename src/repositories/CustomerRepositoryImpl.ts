@@ -23,18 +23,18 @@ export class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     getById(id: string): Promise<Customer> {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented." + id);
     }
 
     insert(entity: Customer): Promise<void> {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented." + entity);
     }
 
     update(entity: Customer): Promise<void> {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented." + entity);
     }
 
     remove(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented." + id);
     }
 }
