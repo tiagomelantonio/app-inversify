@@ -1,8 +1,16 @@
+import { Request } from "express";
 import { EntityDataMapper } from "../interfaces/EntityDataMapper";
 import { Customer } from "../domain/Customer";
 import { CustomerEntity } from "../entities/CustomerEntity";
 
 export class CustomerDataMapper implements EntityDataMapper<Customer, CustomerEntity> {
+
+    requestToDomain(req: Request): Customer {
+        const customer = new Customer();
+        customer.name = req.body.name;
+        customer.age = req.body.age;
+        return customer;
+    }
 
     toDomain(entity: CustomerEntity): Customer {
         const customer = new Customer();

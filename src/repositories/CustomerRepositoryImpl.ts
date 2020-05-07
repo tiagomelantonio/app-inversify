@@ -9,32 +9,33 @@ import { CustomerDataMapper } from "../mappers/CustomerDataMapper";
 @injectable()
 export class CustomerRepositoryImpl implements CustomerRepository {
 
-    private readonly _repository: TypeOrmRepository<CustomerEntity>;
-    private readonly _dataMapper: EntityDataMapper<Customer, CustomerEntity>;
+    private readonly ormRepository: TypeOrmRepository<CustomerEntity>;
+    private readonly dataMapper: EntityDataMapper<Customer, CustomerEntity>;
 
     public constructor() {
-        this._repository = getConnection('default').getRepository(CustomerEntity);
-        this._dataMapper = new CustomerDataMapper();
+        this.ormRepository = getConnection('default').getRepository(CustomerEntity);
+        this.dataMapper = new CustomerDataMapper();
     }
 
     async getAll(): Promise<Customer[]> {
-        const entities = await this._repository.find();
-        return entities.map((e) => this._dataMapper.toDomain(e));
+        const entities = await this.ormRepository.find();
+        return entities.map((entity) => this.dataMapper.toDomain(entity));
     }
 
-    getById(id: string): Promise<Customer> {
-        throw new Error("Method not implemented." + id);
+    async getById(id: string): Promise<Customer> {
+        const entity = await this.ormRepository.findOne(id);
+        return this.dataMapper.toDomain(entity);
     }
 
-    insert(entity: Customer): Promise<void> {
-        throw new Error("Method not implemented." + entity);
+    async insert(domain: Customer): Promise<void> {
+        await this.ormRepository.insert(this.dataMapper.toDalEntity(domain));
     }
 
-    update(entity: Customer): Promise<void> {
-        throw new Error("Method not implemented." + entity);
+    async update(domain: Customer): Promise<void> {
+        await this.ormRepository.update({ id: domain.id }, this.dataMapper.toDalEntity(domain));
     }
 
-    remove(id: string): Promise<void> {
-        throw new Error("Method not implemented." + id);
+    async remove(id: string): Promise<void> {
+        await this.ormRepository.delete({ id: id });
     }
 }

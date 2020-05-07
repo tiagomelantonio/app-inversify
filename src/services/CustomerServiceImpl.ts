@@ -12,19 +12,19 @@ export class CustomerServiceImpl implements CustomerService {
         return await this.customerRepository.getAll();
     }
 
-    getById(id: string): Promise<Customer> {
+    async getById(id: string): Promise<Customer> {
         throw new Error("Method not implemented." + id);
     }
 
-    insert(model: Customer): Promise<void> {
-        throw new Error("Method not implemented." + model);
+    async insert(entity: Customer): Promise<void> {
+        await this.customerRepository.insert(entity)
     }
 
-    update(model: Customer): Promise<void> {
-        throw new Error("Method not implemented." + model);
+    async update(entity: Customer): Promise<void> {
+        throw new Error("Method not implemented." + entity);
     }
 
-    remove(id: string): Promise<void> {
+    async remove(id: string): Promise<void> {
         throw new Error("Method not implemented." + id);
     }
 }
