@@ -1,8 +1,8 @@
 import { Response } from 'express';
-import { interfaces, controller, httpGet, httpPost, httpDelete, httpPatch, requestParam, response, request } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, httpDelete, httpPatch, requestParam, response, requestBody } from "inversify-express-utils";
 import { inject } from "inversify";
 import { CustomerService } from '../services/CustomerService';
-import { Customer } from 'src/domain/Customer';
+import { Customer } from '../domain/Customer';
 
 @controller('/v1/customers')
 export class CustomerController implements interfaces.Controller {
@@ -25,12 +25,14 @@ export class CustomerController implements interfaces.Controller {
             const customer = await this.customerService.getById(id);
             res.json(customer);
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json({
+                message: error.message
+            });
         }
     }
 
     @httpPost('/')
-    async insert(@request() customer: Customer, @response() res: Response) {
+    async insert(@requestBody() customer: Customer, @response() res: Response) {
         try {
             await this.customerService.insert(customer);
             res.json({
@@ -42,16 +44,26 @@ export class CustomerController implements interfaces.Controller {
     }
 
     @httpPatch('/:id')
-    async update() {
+    async update(@requestParam() id: string, @requestBody() customer: Customer, @response() res: Response) {
         try {
-
+            await this.customerService.update(id, customer);
+            res.json({
+                status: 200
+            })
         } catch (error) {
-
+            res.status(500).json(error.message);
         }
     }
 
     @httpDelete('/:id')
-    async remove() {
-
+    async remove(@requestParam() id: string, @response() res: Response) {
+        try {
+            await this.customerService.remove(id);
+            res.json({
+                status: 200
+            })
+        } catch (error) {
+            res.status(500).json(error.message);
+        }
     }
 }

@@ -4,9 +4,9 @@ export interface Repository<T>{
 
     getById(id: string): Promise<T>;
 
-    insert(entity: T): Promise<void>;
+    insert(domain: T): Promise<void>;
 
-    update(entity: T): Promise<void>;
+    update(id: string, domain: T): Promise<void>;
 
     remove(id: string): Promise<void>;
 }

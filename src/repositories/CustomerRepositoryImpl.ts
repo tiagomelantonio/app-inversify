@@ -28,14 +28,14 @@ export class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     async insert(domain: Customer): Promise<void> {
-        await this.ormRepository.insert(this.dataMapper.toDalEntity(domain));
+        await this.ormRepository.insert(this.dataMapper.toEntity(domain));
     }
 
-    async update(domain: Customer): Promise<void> {
-        await this.ormRepository.update({ id: domain.id }, this.dataMapper.toDalEntity(domain));
+    async update(id: string, domain: Customer): Promise<void> {
+        await this.ormRepository.update({ _id: id }, this.dataMapper.toEntity(domain));
     }
 
     async remove(id: string): Promise<void> {
-        await this.ormRepository.delete({ id: id });
+        await this.ormRepository.delete(id);
     }
 }
