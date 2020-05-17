@@ -14,18 +14,18 @@ export class CustomerServiceImpl implements CustomerService {
 
     async getById(id: string): Promise<Customer> {
         const customer = await this.customerRepository.getById(id);
-        if (customer === null) {
-            throw new Error('Customer not found');
-        }
         return customer;
     }
 
-    async insert(domain: Customer): Promise<void> {
-        await this.customerRepository.insert(domain)
+    async insert(domain: Customer): Promise<boolean> {
+        if (domain.isValid()) {
+            return await this.customerRepository.insert(domain);
+        }
+        return false;
     }
 
-    async update(id: string, domain: Customer): Promise<void> {
-        await this.customerRepository.update(id, domain);
+    async update(id: string, domain: Customer): Promise<boolean> {
+        return await this.customerRepository.update(id, domain);
     }
 
     async remove(id: string): Promise<void> {

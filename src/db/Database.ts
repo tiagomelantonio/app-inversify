@@ -3,7 +3,11 @@ import { createConnection } from 'typeorm';
 export class Database {
 
     async start() {
-        await createConnection();
-        console.log('Database is connected');
+        try {
+            await createConnection();
+            console.log('Database is up');
+        } catch (error) {
+            console.log(error.message);   
+        }
     }
 }

@@ -19,8 +19,8 @@ export class HttpServer {
         });
 
         const app = server.build();
-        app.listen(3000, function() {
-            console.log('Http server is running on port 3000');
-        });
+        app.listen(3000);
+        console.log('HttpServer is up');
+        
     }
 }

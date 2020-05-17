@@ -1,17 +1,18 @@
 {
-    "type": "mongodb",
-    "host": "localhost",
-    "port": 27017,
-    "database": "tida",
-    "synchronize": true,
-    "logging": false,
-    "entities": [
-       "dist/entities/**/*.js"
-    ],
-    "migrations": [
-       "dist/migrations/**/*.js"
-    ],
-    "subscribers": [
-       "dist/subscribers/**/*.js"
-    ]
- }
+   "type": "mongodb",
+   "host": "localhost",
+   "port": 27017,
+   "database": "tida",
+   "useUnifiedTopology": true,
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "dist/entities/**/*.js"
+   ],
+   "migrations": [
+      "dist/migrations/**/*.js"
+   ],
+   "subscribers": [
+      "dist/subscribers/**/*.js"
+   ]
+}

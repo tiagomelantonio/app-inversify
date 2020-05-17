@@ -12,12 +12,8 @@ export class TidaFramework {
     }
 
     async start() {
-        console.log("Tida Framework is starting");
-
         await this.database.start();
 
         await this.httpServer.start();
-
-        console.log("Tida Framework is up");
     }
 }

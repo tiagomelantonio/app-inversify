@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { interfaces, controller, httpGet, httpPost, httpDelete, httpPatch, requestParam, response, requestBody } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, httpDelete, httpPatch, requestParam, response, requestBody, httpPut } from "inversify-express-utils";
 import { inject } from "inversify";
 import { CustomerService } from '../services/CustomerService';
 import { Customer } from '../domain/Customer';
@@ -23,6 +23,9 @@ export class CustomerController implements interfaces.Controller {
     async getById(@requestParam("id") id: string, @response() res: Response) {
         try {
             const customer = await this.customerService.getById(id);
+            if (customer === null) {
+                throw new Error("Customer not found");
+            }
             res.json(customer);
         } catch (error) {
             res.status(500).json({
@@ -43,7 +46,7 @@ export class CustomerController implements interfaces.Controller {
         }
     }
 
-    @httpPatch('/:id')
+    @httpPut('/:id')
     async update(@requestParam() id: string, @requestBody() customer: Customer, @response() res: Response) {
         try {
             await this.customerService.update(id, customer);

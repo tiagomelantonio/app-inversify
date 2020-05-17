@@ -27,15 +27,29 @@ export class CustomerRepositoryImpl implements CustomerRepository {
         return this.dataMapper.toDomain(entity);
     }
 
-    async insert(domain: Customer): Promise<void> {
-        await this.ormRepository.insert(this.dataMapper.toEntity(domain));
+    async insert(domain: Customer): Promise<boolean> {
+        try {
+            await this.ormRepository.insert(this.dataMapper.toEntity(domain));
+        } catch (error) {
+            return false;
+        }
+        return true;
     }
 
-    async update(id: string, domain: Customer): Promise<void> {
-        await this.ormRepository.update({ _id: id }, this.dataMapper.toEntity(domain));
+    async update(id: string, domain: Customer): Promise<boolean> {
+        try {
+            await this.ormRepository.update(id, this.dataMapper.toEntity(domain));
+        } catch (error) {
+            return false;
+        }
+        return true;
     }
 
     async remove(id: string): Promise<void> {
-        await this.ormRepository.delete(id);
+        try {
+            await this.ormRepository.delete(id);
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 }

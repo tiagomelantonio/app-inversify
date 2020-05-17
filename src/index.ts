@@ -13,4 +13,8 @@ tidaFramework.httpServer.container.bind<CustomerController>('CustomerController'
 tidaFramework.httpServer.container.bind<CustomerService>('CustomerService').to(CustomerServiceImpl);
 tidaFramework.httpServer.container.bind<CustomerRepository>('CustomerRepository').to(CustomerRepositoryImpl);
 
-tidaFramework.start()
+(async () => {
+    await tidaFramework.start();
+    console.log('Application is up');
+    
+})()
