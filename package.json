@@ -1,7 +1,7 @@
 {
-  "name": "tida-framework",
+  "name": "app-inversify-test",
   "version": "1.0.0",
-  "description": "Tida Framework",
+  "description": "App Inversify Test",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,7 +19,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:tida-projects/tida-framework.git"
+    "url": "git@gitlab.com:tida-projects/app-iversify-test.git"
   },
   "author": "Tida <tida@tida.com.br>",
   "license": "ISC",

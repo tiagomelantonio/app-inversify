@@ -1,4 +1,4 @@
-import { TidaFramework } from './init/TidaFramework';
+import { AppInversify } from './init/AppInversify';
 import { CustomerController } from './controllers/CustomerController';
 import { HealthCkeckController } from './controllers/HealthCheckController';
 import { CustomerService } from './services/CustomerService';
@@ -6,15 +6,15 @@ import { CustomerServiceImpl } from './services/CustomerServiceImpl';
 import { CustomerRepository } from './repositories/CustomerRepository';
 import { CustomerRepositoryImpl } from './repositories/CustomerRepositoryImpl';
 
-const tidaFramework = new TidaFramework();
+const appInversify = new AppInversify();
 
-tidaFramework.httpServer.container.bind<HealthCkeckController>('HealthCkeckController').to(HealthCkeckController);
-tidaFramework.httpServer.container.bind<CustomerController>('CustomerController').to(CustomerController);
-tidaFramework.httpServer.container.bind<CustomerService>('CustomerService').to(CustomerServiceImpl);
-tidaFramework.httpServer.container.bind<CustomerRepository>('CustomerRepository').to(CustomerRepositoryImpl);
+appInversify.httpServer.container.bind<HealthCkeckController>('HealthCkeckController').to(HealthCkeckController);
+appInversify.httpServer.container.bind<CustomerController>('CustomerController').to(CustomerController);
+appInversify.httpServer.container.bind<CustomerService>('CustomerService').to(CustomerServiceImpl);
+appInversify.httpServer.container.bind<CustomerRepository>('CustomerRepository').to(CustomerRepositoryImpl);
 
 (async () => {
-    await tidaFramework.start();
+    await appInversify.start();
     console.log('Application is up');
     
 })()

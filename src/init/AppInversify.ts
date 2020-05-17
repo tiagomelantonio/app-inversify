@@ -1,7 +1,7 @@
 import { HttpServer } from '../server';
 import { Database } from '../db/Database';
 
-export class TidaFramework {
+export class AppInversify {
 
     httpServer: HttpServer;
     database: Database
