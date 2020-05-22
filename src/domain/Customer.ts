@@ -2,6 +2,7 @@ export class Customer {
 
     id: string;
     name: string;
+    email: string;
     age: number;
 
     public isValid(): boolean {

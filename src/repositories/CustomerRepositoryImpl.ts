@@ -31,7 +31,7 @@ export class CustomerRepositoryImpl implements CustomerRepository {
         try {
             await this.ormRepository.insert(this.dataMapper.toEntity(domain));
         } catch (error) {
-            return false;
+            throw new Error(error.message);
         }
         return true;
     }

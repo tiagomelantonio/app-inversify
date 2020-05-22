@@ -1,6 +1,7 @@
-import { Column, Entity, ObjectID, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectID, ObjectIdColumn, Unique } from "typeorm";
 
 @Entity("customers")
+@Unique(["email"])
 export class CustomerEntity {
 
     @ObjectIdColumn()
@@ -8,6 +9,9 @@ export class CustomerEntity {
 
     @Column()
     name: string;
+
+    @Column()
+    email: string;
 
     @Column()
     age: number;

@@ -18,10 +18,7 @@ export class CustomerServiceImpl implements CustomerService {
     }
 
     async insert(domain: Customer): Promise<boolean> {
-        if (domain.isValid()) {
-            return await this.customerRepository.insert(domain);
-        }
-        return false;
+        return await this.customerRepository.insert(domain);
     }
 
     async update(id: string, domain: Customer): Promise<boolean> {

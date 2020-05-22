@@ -19,8 +19,8 @@ export class HttpServer {
         });
 
         const app = server.build();
-        app.listen(3000);
+        app.listen(8081);
         console.log('HttpServer is up');
-        
+
     }
 }

@@ -15,7 +15,10 @@ export class CustomerController implements interfaces.Controller {
             const customers = await this.customerService.getAll();
             res.json(customers);
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json({
+                status: 500,
+                error: error.message
+            });
         }
     }
 
@@ -29,7 +32,8 @@ export class CustomerController implements interfaces.Controller {
             res.json(customer);
         } catch (error) {
             res.status(500).json({
-                message: error.message
+                status: 500,
+                error: error.message
             });
         }
     }
@@ -42,7 +46,12 @@ export class CustomerController implements interfaces.Controller {
                 status: 200
             });
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json(
+                {
+                    status: 500,
+                    error: error.message
+                }
+            );
         }
     }
 
@@ -54,7 +63,10 @@ export class CustomerController implements interfaces.Controller {
                 status: 200
             })
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json({
+                status: 500,
+                error: error.message
+            });
         }
     }
 
@@ -66,7 +78,10 @@ export class CustomerController implements interfaces.Controller {
                 status: 200
             })
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).json({
+                status: 500,
+                error: error.message
+            });
         }
     }
 }
