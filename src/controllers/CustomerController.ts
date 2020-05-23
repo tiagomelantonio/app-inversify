@@ -1,72 +1,57 @@
 import { Response } from 'express';
-import { interfaces, controller, httpGet, httpPost, httpDelete, httpPatch, requestParam, response, requestBody, httpPut } from "inversify-express-utils";
+import { interfaces, controller, httpGet, httpPost, httpDelete, requestParam, response, requestBody, httpPut } from "inversify-express-utils";
 import { inject } from "inversify";
 import { CustomerService } from '../services/CustomerService';
-import { Customer } from '../domain/Customer';
+import { CustomerDTO } from '../dtos/CustomerDTO';
+import { BaseController } from './BaseController';
+import { ICustomerDataMapper } from '../mappers/ICustomerDataMapper';
 
 @controller('/v1/customers')
-export class CustomerController implements interfaces.Controller {
+export class CustomerController extends BaseController implements interfaces.Controller {
 
-    constructor(@inject("CustomerService") private customerService: CustomerService) { }
+    constructor(
+        @inject("CustomerService") private customerService: CustomerService,
+        @inject("ICustomerDataMapper") private customerDataMapper: ICustomerDataMapper) {
+        super();
+    }
 
     @httpGet('/')
     async getAll(@response() res: Response) {
         try {
-            const customers = await this.customerService.getAll();
-            res.json(customers);
+            const dtos = this.customerDataMapper.domainToDTO(await this.customerService.getAll());
+            this.httpOk(res, dtos);
         } catch (error) {
-            res.status(500).json({
-                status: 500,
-                error: error.message
-            });
+            this.httpFail(res, error.message);
         }
     }
 
     @httpGet('/:id')
     async getById(@requestParam("id") id: string, @response() res: Response) {
         try {
-            const customer = await this.customerService.getById(id);
-            if (customer === null) {
-                throw new Error("Customer not found");
-            }
-            res.json(customer);
+            const dto = this.customerDataMapper.domainToDTO(await this.customerService.getById(id));
+            this.httpOk(res, dto);
         } catch (error) {
-            res.status(500).json({
-                status: 500,
-                error: error.message
-            });
+            this.httpFail(res, error.message);
         }
     }
 
     @httpPost('/')
-    async insert(@requestBody() customer: Customer, @response() res: Response) {
+    async insert(@requestBody() dto: CustomerDTO, @response() res: Response) {
         try {
-            await this.customerService.insert(customer);
-            res.json({
-                status: 200
-            });
+            await this.customerService.insert(this.customerDataMapper.dtoToDomain(dto));
+            this.httpCreated(res);
         } catch (error) {
-            res.status(500).json(
-                {
-                    status: 500,
-                    error: error.message
-                }
-            );
+            this.httpFail(res, error.message);
         }
     }
 
     @httpPut('/:id')
-    async update(@requestParam() id: string, @requestBody() customer: Customer, @response() res: Response) {
+    async update(@requestParam() id: string, @requestBody() dto: CustomerDTO, @response() res: Response) {
         try {
-            await this.customerService.update(id, customer);
-            res.json({
-                status: 200
-            })
+            await this.customerService.update(id, this.customerDataMapper.dtoToDomain(dto));
+            this.httpOk(res);
         } catch (error) {
-            res.status(500).json({
-                status: 500,
-                error: error.message
-            });
+            this.httpFail(res, error.message);
         }
     }
 
@@ -74,14 +59,9 @@ export class CustomerController implements interfaces.Controller {
     async remove(@requestParam() id: string, @response() res: Response) {
         try {
             await this.customerService.remove(id);
-            res.json({
-                status: 200
-            })
+            this.httpOk(res);
         } catch (error) {
-            res.status(500).json({
-                status: 500,
-                error: error.message
-            });
+            this.httpFail(res, error.message);
         }
     }
 }

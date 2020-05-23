@@ -1,6 +1,10 @@
-export interface EntityDataMapper<Domain, Entity> {
+export interface EntityDataMapper<Domain, Entity, DTO> {
 
-    toDomain(entity: Entity): Domain;
+    entityToDomain(entity: Entity): Domain;
 
-    toEntity(domain: Domain): Entity;
+    domainToEntity(domain: Domain): Entity;
+
+    dtoToDomain(dto: DTO): Domain;
+
+    domainToDTO(domain: Domain | Domain[]): DTO | DTO[];
 }
