@@ -51,6 +51,6 @@
     "moment": "^2.24.0",
     "mongodb": "^3.5.7",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.25"
   }
 }
