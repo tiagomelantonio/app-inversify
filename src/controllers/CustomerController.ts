@@ -1,17 +1,17 @@
 import { Response } from 'express';
-import { interfaces, controller, httpGet, httpPost, httpDelete, requestParam, response, requestBody, httpPut } from "inversify-express-utils";
 import { inject } from "inversify";
-import { CustomerService } from '../services/CustomerService';
+import { controller, httpDelete, httpGet, httpPost, httpPut, requestBody, requestParam, response } from "inversify-express-utils";
 import { CustomerDTO } from '../dtos/CustomerDTO';
-import { BaseController } from './BaseController';
 import { ICustomerDataMapper } from '../mappers/ICustomerDataMapper';
+import { CustomerService } from '../services/CustomerService';
+import { BaseController } from './BaseController';
 
 @controller('/v1/customers')
-export class CustomerController extends BaseController implements interfaces.Controller {
+export class CustomerController extends BaseController {
 
     constructor(
-        @inject("CustomerService") private customerService: CustomerService,
-        @inject("ICustomerDataMapper") private customerDataMapper: ICustomerDataMapper) {
+        @inject("CustomerService") private readonly customerService: CustomerService,
+        @inject("ICustomerDataMapper") private readonly customerDataMapper: ICustomerDataMapper) {
         super();
     }
 

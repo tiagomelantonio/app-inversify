@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { controller, httpGet, BaseHttpController, response } from "inversify-express-utils";
+import { BaseHttpController, controller, httpGet, response } from "inversify-express-utils";
 const pkg = require('../../package.json');
 
 @controller('/v1/check')
