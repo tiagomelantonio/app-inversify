@@ -1,11 +1,11 @@
-import { Column, Entity, ObjectID, ObjectIdColumn, Unique } from "typeorm";
+import { Column, Entity, ObjectIdColumn, Unique, ObjectId } from "typeorm";
 
 @Entity("customers")
 @Unique(["email"])
 export class CustomerEntity {
 
     @ObjectIdColumn()
-    _id: ObjectID;
+    _id: ObjectId;
 
     @Column()
     name: string;

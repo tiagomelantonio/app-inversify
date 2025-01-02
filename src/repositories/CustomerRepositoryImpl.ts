@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { CustomerRepository } from "./CustomerRepository";
-import { Repository as TypeOrmRepository, getConnection } from "typeorm";
+import { ObjectId, Repository as TypeOrmRepository, getConnection } from "typeorm";
 import { EntityDataMapper } from "../interfaces/EntityDataMapper";
 import { CustomerEntity } from "../entities/CustomerEntity";
 import { Customer } from "../domain/Customer";
@@ -24,7 +24,7 @@ export class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     async getById(id: string): Promise<Customer> {
-        const entity = await this.ormRepository.findOne(id);
+        const entity = await this.ormRepository.findOne({ where: { _id: new ObjectId(id) } });
         return this.dataMapper.entityToDomain(entity);
     }
 
